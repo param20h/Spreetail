@@ -1,0 +1,52 @@
+FLATMATE CSV IMPORT REPORT
+===========================
+Timestamp: 14/06/2026, 20:25:50
+Group ID: e2719d89-fcd4-48eb-a91c-a4e79697113f
+Group Name: kk
+Session ID: 91bc1f5a-56f7-4f8e-90f5-f0d64ffa8674
+
+SUMMARY STATISTICS
+------------------
+Total Rows Processed: 42
+Successfully Imported: 36
+Skipped Rows: 0
+FX Rate USD -> INR: 95.3
+
+RESOLUTIONS LOG
+----------------
+Row 2: [Imported Expense] — Imported successfully
+Row 3: [Imported Expense] — Imported successfully
+Row 4: [Imported Expense] — Imported successfully
+Row 5: [Imported Expense] — Imported successfully
+Row 7: [Imported Expense] — Imported successfully
+Row 8: [Imported Expense] — Imported successfully
+Row 9: [Imported Expense] — Imported successfully
+Row 10: [Imported Expense] — Imported successfully
+Row 11: [Imported Expense] — Imported successfully
+Row 12: [Imported Expense] — Imported successfully
+Row 14: [Imported Settlement] — Imported successfully
+Row 16: [Imported Expense] — Imported successfully
+Row 17: [Imported Expense] — Imported successfully
+Row 18: [Imported Expense] — Imported successfully
+Row 19: [Imported Expense] — Imported successfully
+Row 20: [Imported Expense] — Imported successfully
+Row 21: [Imported Expense] — Imported successfully
+Row 22: [Imported Expense] — Imported successfully
+Row 23: [Imported Expense] — Imported successfully
+Row 24: [Imported Expense] — Imported successfully
+Row 26: [Imported Expense] — Imported successfully
+Row 27: [Imported Expense] — Imported successfully
+Row 28: [Imported Expense] — Imported successfully
+Row 29: [Imported Expense] — Imported successfully
+Row 30: [Imported Expense] — Imported successfully
+Row 33: [Imported Expense] — Imported successfully
+Row 34: [Imported Expense] — Imported successfully
+Row 35: [Imported Expense] — Imported successfully
+Row 36: [Imported Expense] — Imported successfully
+Row 37: [Imported Expense] — Imported successfully
+Row 38: [Imported Settlement] — Imported successfully
+Row 39: [Imported Expense] — Imported successfully
+Row 40: [Imported Expense] — Imported successfully
+Row 41: [Imported Expense] — Imported successfully
+Row 42: [Imported Expense] — Imported successfully
+Row 43: [Imported Expense] — Imported successfully
