@@ -7,7 +7,7 @@ database: PostgreSQL
 deployment_targets:
   backend: Railway
   frontend: Vercel
-author: Google DeepMind team (Antigravity AI)
+author: param20h
 last_updated: 2026-06-14
 ---
 
@@ -161,3 +161,101 @@ npm test
 ```
 
 This executes 24 unit and integration tests covering the CSV import anomaly engine, balance split calculations, historical currency conversions, and debt-simplification algorithms.
+
+---
+
+## 🌐 Deployed URLs
+
+| Service | URL |
+|---|---|
+| **Frontend (Vercel)** | [https://spreetail-six.vercel.app](https://spreetail-six.vercel.app) |
+| **Backend API (Railway)** | [https://spreetail-production.up.railway.app](https://spreetail-production.up.railway.app) |
+
+### Demo Login
+- **Email**: `aisha@flatmate.com`
+- **Password**: `password123`
+
+---
+
+## 📦 Project Structure
+
+```
+spreetail/
+├── backend/
+│   ├── knexfile.js              # Knex DB config (dev + production)
+│   ├── server.js                # Express app entrypoint
+│   ├── railway.toml             # Railway deployment config
+│   ├── package.json
+│   ├── .env.example             # Environment variable template
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── database.js      # Knex instance
+│   │   ├── middleware/
+│   │   │   ├── auth.js          # JWT verification
+│   │   │   ├── errorHandler.js  # Centralized error handler
+│   │   │   └── validate.js      # express-validator wrapper
+│   │   ├── routes/
+│   │   │   ├── auth.js          # Register & Login
+│   │   │   ├── groups.js        # Groups CRUD + members
+│   │   │   ├── expenses.js      # Expenses CRUD with splits
+│   │   │   ├── balances.js      # Net balances + breakdown
+│   │   │   ├── settlements.js   # Record & list settlements
+│   │   │   ├── import.js        # CSV preview + confirm + report
+│   │   │   └── fxRates.js       # FX rate management
+│   │   ├── services/
+│   │   │   ├── importParser.js  # 19-anomaly CSV detection engine
+│   │   │   ├── balanceEngine.js # Balance calc + debt simplification
+│   │   │   └── fxService.js     # Currency conversion
+│   │   └── utils/
+│   │       ├── fuzzyMatch.js    # Name matching (Priya vs Priya S)
+│   │       ├── dateParser.js    # Multi-format date parsing
+│   │       └── splitCalculator.js # Split type calculations
+│   ├── migrations/              # 9 Knex migration files
+│   ├── seeds/                   # Seed users + sample group
+│   └── tests/                   # Jest test suites
+├── frontend/
+│   ├── vite.config.js           # Vite + React + Tailwind config
+│   ├── vercel.json              # Vercel SPA rewrites
+│   ├── index.html               # HTML entrypoint
+│   ├── package.json
+│   └── src/
+│       ├── App.jsx              # App shell + routing
+│       ├── main.jsx             # React DOM mount
+│       ├── index.css            # Tailwind + theme variables
+│       ├── api/
+│       │   └── client.js        # Axios instance with JWT
+│       ├── context/
+│       │   ├── AuthContext.jsx   # Auth state provider
+│       │   └── ThemeContext.jsx  # Light/Dark theme provider
+│       ├── hooks/
+│       │   ├── useBalances.js   # Balance & settlement hooks
+│       │   ├── useExpenses.js   # Expense CRUD hooks
+│       │   ├── useGroups.js     # Group management hooks
+│       │   └── useTheme.js      # Theme toggle hook
+│       ├── pages/
+│       │   ├── Landing.jsx      # Public landing page
+│       │   ├── Login.jsx        # Login form
+│       │   ├── Register.jsx     # Registration form
+│       │   ├── Dashboard.jsx    # Balance summary + settle up
+│       │   ├── Expenses.jsx     # Expense list + filters
+│       │   ├── BalanceDetail.jsx # Per-user audit trail
+│       │   ├── Members.jsx      # Member management
+│       │   └── Import.jsx       # 5-step CSV import wizard
+│       ├── components/          # Reusable UI components
+│       │   ├── layout/          # Navbar, Sidebar, Layout
+│       │   ├── expenses/        # AddExpenseModal, ExpenseDetailModal
+│       │   └── ui/              # Button, Card, Modal, Badge, etc.
+│       └── utils/
+│           └── formatters.js    # Currency & date formatting
+├── Expenses Export.csv          # Sample CSV with 43 rows
+├── README.md                    # This file
+├── SCOPE.md                     # Schema DDL + anomaly log
+├── DECISIONS.md                 # 10 architecture decisions
+└── AI_USAGE.md                  # AI tool usage + 3 failure cases
+```
+
+---
+
+## 📄 License
+
+MIT

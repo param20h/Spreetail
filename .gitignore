@@ -5,6 +5,8 @@ node_modules/
 .env
 .env.local
 .env.production
+.env.development
+.env.staging
 
 # Build output
 dist/
@@ -31,3 +33,7 @@ coverage/
 # Temp
 tmp/
 temp/
+
+# Scratch / debug test scripts
+backend/test_*.js
+implementation_plan.md
