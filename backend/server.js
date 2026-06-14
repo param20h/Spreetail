@@ -25,7 +25,9 @@ app.use(helmet({
 
 const whitelist = ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173'];
 if (process.env.FRONTEND_URL) {
-  whitelist.push(process.env.FRONTEND_URL);
+  const normalized = process.env.FRONTEND_URL.replace(/\/$/, '');
+  whitelist.push(normalized);
+  whitelist.push(normalized + '/');
 }
 
 app.use(cors({

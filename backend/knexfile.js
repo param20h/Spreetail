@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.DATABASE_URL || 'postgresql://param@localhost:5432/flatmate',
+    connection: process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL || 'postgresql://param@localhost:5432/flatmate',
     migrations: {
       directory: './migrations'
     },
@@ -14,7 +14,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL,
       ssl: { rejectUnauthorized: false }
     },
     migrations: {
