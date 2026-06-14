@@ -48,8 +48,8 @@ router.get('/:id/settlements', async (req, res, next) => {
 router.post(
   '/:id/settlements',
   [
-    body('paid_by').isUUID().withMessage('paid_by must be a user UUID'),
-    body('paid_to').isUUID().withMessage('paid_to must be a user UUID'),
+    body('paid_by').matches(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/).withMessage('paid_by must be a user UUID'),
+    body('paid_to').matches(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/).withMessage('paid_to must be a user UUID'),
     body('amount').isNumeric().withMessage('amount must be a number'),
     body('date').isDate().withMessage('date must be a valid date'),
     body('notes').optional().trim()

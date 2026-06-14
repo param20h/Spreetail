@@ -1,89 +1,163 @@
+---
+title: FlatMate — Shared Expenses App
+description: A premium, full-stack shared expenses tracker with CSV anomaly detection, balance engines, time-scoped membership, and debt simplification.
+framework: React 18 (Vite + Tailwind CSS v4)
+backend: Node.js (Express.js + Knex.js)
+database: PostgreSQL
+deployment_targets:
+  backend: Railway
+  frontend: Vercel
+author: Google DeepMind team (Antigravity AI)
+last_updated: 2026-06-14
+---
+
 # FlatMate — Shared Expenses App
 
-> A full-stack shared expenses tracker for flatmates with CSV import, anomaly detection, multi-currency support, and time-scoped membership.
+FlatMate is a premium, full-stack shared expenses tracker designed for flatmates. It features a advanced CSV import wizard with a 19-anomaly detection engine, time-scoped membership calculations, historical USD-to-INR conversions, and a greedy debt-simplification engine to minimize total transactions.
 
-## 🚀 Quick Start (Local Development)
-
-### Prerequisites
-- Node.js 18+
-- PostgreSQL 14+
-- npm or yarn
-
-### Backend Setup
-```bash
-cd backend
-cp .env.example .env
-# Fill in DATABASE_URL, JWT_SECRET in .env
-npm install
-npx knex migrate:latest
-npx knex seed:run
-npm run dev
-```
-
-### Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The app will be available at `http://localhost:5173` (frontend) and `http://localhost:5000` (API).
+---
 
 ## 🛠 Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, Tailwind CSS v4, Vite |
-| Backend | Node.js, Express.js |
-| Database | PostgreSQL |
-| Query Builder | Knex.js |
-| Auth | JWT (jsonwebtoken + bcryptjs) |
-| CSV Parsing | csv-parse |
-| Validation | express-validator |
-| Testing | Jest + Supertest |
+|---|---|
+| **Frontend** | React 18, Vite, Tailwind CSS v4, Axios, Lucide React |
+| **Backend** | Node.js, Express.js, Knex.js, express-validator |
+| **Database** | PostgreSQL 14+ |
+| **Testing** | Jest, Supertest |
+| **Auth** | JWT (jsonwebtoken + bcryptjs) |
 
-## 📦 Project Structure
+---
 
+## 🚀 Local Development Setup
+
+### 1. Prerequisites
+- **Node.js** v18+
+- **PostgreSQL** v14+
+- **npm** or yarn
+
+### 2. Backend Installation & Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create your environment configuration file:
+   ```bash
+   cp .env.example .env
+   ```
+3. Open `.env` and fill in your details:
+   - `PORT`: Port to run the server on (default: `5001` or `5000`)
+   - `DATABASE_URL`: Connection string to your local PostgreSQL instance
+   - `JWT_SECRET`: Secret key for signing JWTs
+   - `FRONTEND_URL`: URL of the frontend app (e.g. `http://localhost:3000`)
+4. Install dependencies:
+   ```bash
+   npm install
+   ```
+5. Run migrations to set up the 9 database tables:
+   ```bash
+   npx knex migrate:latest
+   ```
+6. Run seeds to populate default users (Aisha, Rohan, Priya, Meera, Sam, Dev, Kabir) and groups:
+   ```bash
+   npx knex seed:run
+   ```
+7. Start the development server (runs via `nodemon`):
+   ```bash
+   npm run dev
+   ```
+
+### 3. Frontend Installation & Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Set up the development API environment:
+   Create a `.env` file in the `frontend` directory containing:
+   ```env
+   VITE_API_URL=http://localhost:5001/api
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server (runs via Vite on port `3000`):
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🔮 Core Features & Anomaly Detection
+
+- **CSV Import Engine**: Processes a standard CSV and checks for **19 distinct anomalies** (such as duplicates, ambiguous dates, comma-separated amounts, percentage mismatches, and departed/future members).
+- **Time-Scoped Membership**: Automatically gates balance ledger participation. For example, Sam (joined Apr 8) is excluded from March expenses, and Meera (left Mar 28) is excluded from April expenses.
+- **USD-to-INR Conversion**: Traces rates on the day of purchase and maintains a historical exchange audit log.
+- **Greedy Debt Simplification**: Combines net debts to yield the minimum number of bank transfers required to settle up.
+- **Flexible UUID Matches**: Fully accepts custom/mock UUID structures in validations to support database seeds without throwing validation errors.
+
+---
+
+## 🌎 Production Deployment Steps
+
+Follow these instructions to deploy FlatMate to production.
+
+### A. Deploy Backend API to Railway
+
+1. **Sign Up / Log In**: Go to [Railway.app](https://railway.app) and link your GitHub account.
+2. **Create a New Project**:
+   - Click **New Project** → **Deploy from GitHub repository**.
+   - Select the repository containing your FlatMate workspace.
+   - Set the root directory of the build to `backend` (under settings).
+3. **Provision PostgreSQL Database**:
+   - In the same Railway project, click **New** → **Database** → **Add PostgreSQL**.
+   - Railway will automatically provision a Postgres database and inject a `DATABASE_URL` environment variable.
+4. **Configure Environment Variables**:
+   Go to the **Variables** tab of your backend service and add the following:
+   - `PORT`: Set to `5000` or leave blank (Railway will automatically assign a `$PORT`).
+   - `DATABASE_URL`: Reference the Railway PG variable: `${{Postgres.DATABASE_URL}}`
+   - `JWT_SECRET`: A long, random string (e.g. `your-super-long-secure-production-jwt-key`).
+   - `FRONTEND_URL`: Set this to your production frontend URL (e.g., `https://flatmate-app.vercel.app`) to authorize CORS requests.
+5. **Automatic Migrations & Startup**:
+   - The repository includes a `backend/railway.toml` configuration that instructs Railway to run migrations on deployment:
+     ```toml
+     [deploy]
+     startCommand = "npx knex migrate:latest && node server.js"
+     ```
+   - Railway will run the nixpacks builder, execute migrations, and spin up the server. Copy the public URL generated by Railway (e.g., `https://flatmate-api-production.up.railway.app`).
+
+---
+
+### B. Deploy Frontend UI to Vercel
+
+1. **Sign Up / Log In**: Go to [Vercel.com](https://vercel.com) and link your GitHub account.
+2. **Create New Project**:
+   - Click **Add New...** → **Project**.
+   - Import your GitHub repository.
+3. **Configure Project Settings**:
+   - **Framework Preset**: Select **Vite** or **Other**.
+   - **Root Directory**: Set this to `frontend`.
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. **Configure Environment Variables**:
+   In the project configuration under **Environment Variables**, add:
+   - Key: `VITE_API_URL`
+   - Value: The public URL of your deployed Railway API with the `/api` suffix (e.g., `https://flatmate-api-production.up.railway.app/api`).
+5. **Vercel Rewrites**:
+   - Vercel uses the `frontend/vercel.json` file in the repository to handle React Router routing, rewriting all routes to `index.html` to avoid `404` errors on page refresh.
+6. **Deploy**:
+   - Click **Deploy**. Once the build finishes, Vercel will provide your production URL.
+   - Copy this URL and add/update it as the `FRONTEND_URL` in the Railway backend variables to ensure CORS matches.
+
+---
+
+## 🧪 Running Tests
+
+To run the full test suite locally:
+
+```bash
+cd backend
+npm test
 ```
-├── backend/
-│   ├── src/
-│   │   ├── config/         # Database configuration
-│   │   ├── middleware/      # Auth, error handling, validation
-│   │   ├── routes/          # Express route handlers
-│   │   ├── services/        # Business logic (importParser, balanceEngine)
-│   │   └── utils/           # Helpers (fuzzyMatch, dateParser, splitCalculator)
-│   ├── migrations/          # Knex database migrations
-│   ├── seeds/               # Seed data
-│   └── tests/               # Jest test suites
-├── frontend/
-│   └── src/
-│       ├── components/      # Reusable UI components
-│       ├── pages/           # Route pages
-│       ├── context/         # React context (Auth)
-│       ├── hooks/           # Custom hooks
-│       └── api/             # API client
-├── SCOPE.md                 # Schema & anomaly documentation
-├── DECISIONS.md             # Architecture decisions
-└── AI_USAGE.md              # AI tool usage log
-```
 
-## 🌐 Deployed URLs
-
-| Service | URL |
-|---------|-----|
-| Frontend (Vercel) | *TBD after deployment* |
-| Backend API (Railway) | *TBD after deployment* |
-
-## ✨ Key Features
-
-- **CSV Import with Anomaly Detection** — 19 distinct anomaly types detected, reviewed, and resolved via a 5-step import wizard
-- **4 Split Types** — Equal, Unequal, Percentage, and Share-based expense splitting
-- **Time-Scoped Membership** — Members who join late or leave early only participate in expenses during their active period
-- **Multi-Currency Support** — USD expenses converted to INR at configurable FX rates with full traceability
-- **Debt Simplification** — Greedy algorithm reduces complex debts to minimal transactions
-- **Audit Trail** — Every balance can be traced back to individual expense splits (per Rohan's request)
-- **Settlement Tracking** — Settlements are distinguished from expenses and properly credited
-
-## 📄 License
-
-MIT
+This executes 24 unit and integration tests covering the CSV import anomaly engine, balance split calculations, historical currency conversions, and debt-simplification algorithms.

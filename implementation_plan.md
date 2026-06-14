@@ -638,6 +638,45 @@ Setup instructions, tech stack, deployed URLs
 ### [NEW] [AI_USAGE.md](file:///Users/param/placements/spreetail/AI_USAGE.md)
 Tools used, key prompts, 3 cases where AI was wrong
 
+
+---
+
+## Phase 8: Landing Page, Theme Toggle & Smooth Motion
+
+### [NEW] [ThemeContext.jsx](file:///Users/param/placements/spreetail/frontend/src/context/ThemeContext.jsx)
+- Implements `ThemeContext` and `ThemeProvider` to manage current theme state (`light` or `dark`).
+- Synchronizes with `document.documentElement` class list (`light` vs default dark).
+- Persists user preferences in `localStorage` for returning sessions.
+
+### [NEW] [useTheme.js](file:///Users/param/placements/spreetail/frontend/src/hooks/useTheme.js)
+- Custom hook wrapper to consume `ThemeContext`.
+
+### [NEW] [Landing.jsx](file:///Users/param/placements/spreetail/frontend/src/pages/Landing.jsx)
+- A highly polished, classy landing/info page featuring:
+  - **Hero Header**: Styled with geometric Outfit display font, brief app description, and primary CTAs linking to `/login` and `/register`.
+  - **Obsidian Preview Widget**: Floating, interactive mockup illustrating balance statements.
+  - **Feature Matrix**: Showcases key features (Time-scoped membership, 19-anomaly CSV parser, greedy debt settlements, and audit trails) with micro-hover translations.
+  - **Mode Toggle Integration**: A local header and switch so users can preview the theme change on the landing page itself.
+
+### [MODIFY] [index.css](file:///Users/param/placements/spreetail/frontend/src/index.css)
+- Define standard CSS custom properties for Light Mode and Dark Mode backgrounds, cards, hover overlays, borders, and text variables.
+- Map custom tailwind colors (`--color-navy-950`, `--color-navy-900`, etc.) to CSS variables so backgrounds automatically transition.
+- Define custom text variables (`--color-theme-primary`, `--color-theme-secondary`, `--color-theme-muted`) mapping to CSS variables to toggle body/header text colors.
+- Define global transition properties on container elements for background-color, border-color, shadow, and opacity for "perfect motion" transitions.
+
+### [MODIFY] [Navbar.jsx](file:///Users/param/placements/spreetail/frontend/src/components/layout/Navbar.jsx)
+- Place the Sun/Moon toggle next to the user menu on the right.
+- Bind smooth SVG rotations and scale-in animations (`rotate-90 scale-0` -> `rotate-0 scale-100`) to provide instant interactive feedback.
+
+### [MODIFY] [App.jsx](file:///Users/param/placements/spreetail/frontend/src/App.jsx)
+- Wrap root routes in `ThemeProvider` (and `main.jsx` / `App.jsx`).
+- Render the `Landing` page at `/`.
+- Adjust `ProtectedRoute` nesting so that Layout page wraps `/dashboard`, `/expenses`, `/balance`, `/members`, and `/import` without changing their paths.
+
+### [MODIFY] Pages & UI Components
+- Replace hardcoded text colors in headings (`text-white`) with `text-theme-primary`, slate labels (`text-slate-300`/`text-slate-400`) with `text-theme-secondary`, and muted items (`text-slate-500`) with `text-theme-muted` where dynamic color toggling is required.
+- Add `transition-all duration-300` classes to card components, buttons, fields, and tables to ensure color transitions animate smoothly.
+
 ---
 
 ## Open Questions

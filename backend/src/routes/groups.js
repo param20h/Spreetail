@@ -107,7 +107,7 @@ router.get('/:id', async (req, res, next) => {
 router.post(
   '/:id/members',
   [
-    body('user_id').isUUID().withMessage('User ID must be a valid UUID'),
+    body('user_id').matches(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/).withMessage('User ID must be a valid UUID'),
     body('joined_at').isDate().withMessage('joined_at must be a valid YYYY-MM-DD date')
   ],
   validate,
