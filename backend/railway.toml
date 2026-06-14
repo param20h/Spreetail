@@ -2,5 +2,5 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "npx knex migrate:latest && node server.js"
+startCommand = "npx knex migrate:latest && npx knex seed:run && node server.js"
 restartPolicyType = "ON_FAILURE"
