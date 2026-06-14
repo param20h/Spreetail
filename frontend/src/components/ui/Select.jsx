@@ -19,15 +19,15 @@ export default function Select({
       <div className="relative">
         <select
           className={cn(
-            'w-full bg-slate-800/60 border border-slate-600/50 rounded-xl px-4 py-2.5 text-sm text-white appearance-none',
-            'focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50',
+            'w-full bg-navy-850 border border-white/5 rounded-xl px-4 py-2.5 text-sm text-theme-primary appearance-none',
+            'focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500/40',
             'transition-all duration-200 cursor-pointer',
             error && 'border-rose-500/50 focus:ring-rose-500/40'
           )}
           {...props}
         >
           {placeholder && (
-            <option value="" className="bg-slate-800 text-slate-400">
+            <option value="" className="bg-navy-850 text-slate-400">
               {placeholder}
             </option>
           )}
@@ -35,7 +35,7 @@ export default function Select({
             <option
               key={opt.value}
               value={opt.value}
-              className="bg-slate-800 text-white"
+              className="bg-navy-850 text-theme-primary"
             >
               {opt.label}
             </option>

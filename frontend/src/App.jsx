@@ -1,7 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { useGroups } from './hooks/useGroups';
 import Layout from './components/layout/Layout';
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -31,13 +33,15 @@ function AppContent() {
 
   return (
     <Routes>
+      {/* Public Landing/Front Page */}
+      <Route path="/" element={<Landing />} />
+
       {/* Public Auth Routes */}
       <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/dashboard" replace />} />
       <Route path="/register" element={!isAuthenticated ? <Register /> : <Navigate to="/dashboard" replace />} />
 
       {/* Protected App Routes */}
       <Route
-        path="/"
         element={
           <ProtectedRoute>
             <Layout
@@ -49,16 +53,15 @@ function AppContent() {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard currentGroup={currentGroup} />} />
-        <Route path="expenses" element={<Expenses currentGroup={currentGroup} />} />
-        <Route path="balance" element={<BalanceDetail currentGroup={currentGroup} />} />
-        <Route path="members" element={<Members currentGroup={currentGroup} onRefreshGroup={fetchGroups} />} />
-        <Route path="import" element={<Import currentGroup={currentGroup} />} />
+        <Route path="/dashboard" element={<Dashboard currentGroup={currentGroup} />} />
+        <Route path="/expenses" element={<Expenses currentGroup={currentGroup} />} />
+        <Route path="/balance" element={<BalanceDetail currentGroup={currentGroup} />} />
+        <Route path="/members" element={<Members currentGroup={currentGroup} onRefreshGroup={fetchGroups} />} />
+        <Route path="/import" element={<Import currentGroup={currentGroup} />} />
       </Route>
 
       {/* Catch-all */}
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
@@ -66,9 +69,12 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
+

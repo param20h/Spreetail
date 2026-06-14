@@ -127,12 +127,12 @@ export default function Members({ currentGroup, onRefreshGroup }) {
           
           return (
             <Card key={m.user_id} className={`p-5 flex flex-col justify-between transition-all hover:scale-[1.01] border ${
-              isActive ? 'border-slate-800 bg-slate-900/30' : 'border-rose-500/15 bg-rose-550/5 opacity-70'
+              isActive ? 'border-white/5 bg-navy-850/30' : 'border-rose-500/15 bg-rose-550/5 opacity-70'
             }`}>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-300">
+                    <div className="w-10 h-10 rounded-full bg-navy-800 flex items-center justify-center font-bold text-slate-300">
                       {m.name[0]}
                     </div>
                     <div>
@@ -159,7 +159,7 @@ export default function Members({ currentGroup, onRefreshGroup }) {
                   </div>
                 </div>
 
-                <div className="border-t border-slate-800/80 pt-3 flex flex-col gap-1 text-xs text-slate-400">
+                <div className="border-t border-white/5 pt-3 flex flex-col gap-1 text-xs text-slate-400">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-slate-500" />
                     Joined on: <span className="text-slate-200">{formatDate(m.joined_at)}</span>
@@ -174,7 +174,7 @@ export default function Members({ currentGroup, onRefreshGroup }) {
               </div>
 
               {isActive && (
-                <div className="mt-5 pt-3 border-t border-slate-800/60 flex justify-end">
+                <div className="mt-5 pt-3 border-t border-white/5 flex justify-end">
                   <button
                     onClick={() => {
                       setSelectedUser(m);

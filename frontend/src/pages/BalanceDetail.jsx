@@ -65,7 +65,7 @@ export default function BalanceDetail({ currentGroup }) {
           <select
             value={selectedUserId}
             onChange={(e) => setSelectedUserId(e.target.value)}
-            className="w-full bg-slate-850 border border-slate-700/50 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-500/40"
+            className="w-full bg-navy-850 border border-white/5 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-500/40"
           >
             {Object.keys(breakdown).map(uid => (
               <option key={uid} value={uid}>{breakdown[uid].name}</option>
@@ -85,14 +85,14 @@ export default function BalanceDetail({ currentGroup }) {
               </p>
             </Card>
 
-            <Card className="p-5 border border-slate-750">
+            <Card className="p-5 border border-white/5">
               <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Paid / Contributed</p>
               <p className="text-3xl font-extrabold mt-1 text-white tabular-nums">
                 {formatCurrency(userLedger.credits, 'INR')}
               </p>
             </Card>
 
-            <Card className="p-5 border border-slate-750">
+            <Card className="p-5 border border-white/5">
               <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Your Share (Owed)</p>
               <p className="text-3xl font-extrabold mt-1 text-white tabular-nums">
                 {formatCurrency(userLedger.debits, 'INR')}
@@ -103,13 +103,13 @@ export default function BalanceDetail({ currentGroup }) {
           {/* Audit trail list */}
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              Itemized Audit Trail <span className="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-normal">{userItems.length} items</span>
+              Itemized Audit Trail <span className="text-xs bg-navy-800 text-slate-400 px-2 py-0.5 rounded-full font-normal">{userItems.length} items</span>
             </h2>
-            <Card className="overflow-hidden p-0 border border-slate-800">
+            <Card className="overflow-hidden p-0 border border-white/5">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs sm:text-sm">
                   <thead>
-                    <tr className="bg-slate-800/60 text-slate-400 font-semibold border-b border-slate-700/50 uppercase tracking-wider text-[10px]">
+                    <tr className="bg-navy-800/60 text-slate-400 font-semibold border-b border-white/5 uppercase tracking-wider text-[10px]">
                       <th className="py-3 px-4">Date</th>
                       <th className="py-3 px-4">Description</th>
                       <th className="py-3 px-4 text-center">Your Role</th>
@@ -118,7 +118,7 @@ export default function BalanceDetail({ currentGroup }) {
                       <th className="py-3 px-4 text-right">Impact (INR)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/50 text-slate-300">
+                  <tbody className="divide-y divide-white/5 text-slate-300">
                     {userItems.map((item, idx) => {
                       // Calculate the numeric impact of this item in the user's ledger:
                       // impact = credits - debits
@@ -149,7 +149,7 @@ export default function BalanceDetail({ currentGroup }) {
                       const itemNet = credit - debit;
 
                       return (
-                        <tr key={idx} className="hover:bg-slate-800/10">
+                        <tr key={idx} className="hover:bg-navy-800/40">
                           <td className="py-3 px-4 font-medium text-slate-400">
                             {formatDate(item.date)}
                           </td>
@@ -164,7 +164,7 @@ export default function BalanceDetail({ currentGroup }) {
                                 ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25'
                                 : roleLabel.includes('Recv')
                                 ? 'bg-rose-500/15 text-rose-400 border-rose-500/25'
-                                : 'bg-slate-500/15 text-slate-400 border-slate-500/25'
+                                : 'bg-navy-800/40 text-slate-400 border-white/5'
                             }`}>
                               {roleLabel}
                             </span>
@@ -186,11 +186,11 @@ export default function BalanceDetail({ currentGroup }) {
                     })}
                   </tbody>
                   <tfoot>
-                    <tr className="bg-slate-800/30 font-bold border-t border-slate-700/60">
+                    <tr className="bg-navy-800/30 font-bold border-t border-white/5">
                       <td className="py-3.5 px-4 text-white" colSpan="3">Calculation Totals</td>
                       <td className="py-3.5 px-4 text-right font-mono tabular-nums text-emerald-400">+{formatCurrency(userLedger.credits, 'INR')}</td>
                       <td className="py-3.5 px-4 text-right font-mono tabular-nums text-rose-450">-{formatCurrency(userLedger.debits, 'INR')}</td>
-                      <td className={`py-3.5 px-4 text-right font-mono tabular-nums border-l border-slate-700/40 ${getBalanceColor(userLedger.net)}`}>
+                      <td className={`py-3.5 px-4 text-right font-mono tabular-nums border-l border-white/5 ${getBalanceColor(userLedger.net)}`}>
                         {userLedger.net > 0 ? '+' : ''}{formatCurrency(userLedger.net, 'INR')}
                       </td>
                     </tr>
@@ -199,7 +199,7 @@ export default function BalanceDetail({ currentGroup }) {
               </div>
             </Card>
 
-            <Card className="p-4 bg-slate-800/25 border border-slate-700/25 text-xs text-slate-400">
+            <Card className="p-4 bg-navy-800/25 border border-white/5 text-xs text-slate-400">
               <p className="font-semibold text-slate-300 flex items-center gap-1.5 mb-1">
                 Audit Reconciliation Formula:
               </p>

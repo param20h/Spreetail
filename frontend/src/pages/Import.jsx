@@ -5,8 +5,9 @@ import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Spinner from '../components/ui/Spinner';
+import Input from '../components/ui/Input';
 import { formatCurrency } from '../utils/formatters';
-import { FileUp, HelpCircle, ArrowRight, AlertTriangle, CheckCircle, RefreshCw, CheckCircle2, ChevronRight, Download, Info } from 'lucide-react';
+import { FileUp, HelpCircle, ArrowRight, AlertTriangle, CheckCircle, RefreshCw, CheckCircle2, ChevronRight, Download, Info, TrendingUp } from 'lucide-react';
 
 export default function Import({ currentGroup }) {
   const [step, setStep] = useState(1);
@@ -182,7 +183,7 @@ export default function Import({ currentGroup }) {
   return (
     <div className="space-y-6 max-w-5xl mx-auto animate-fade-in">
       {/* Wizard Step Progress bar */}
-      <div className="flex items-center justify-between bg-slate-800/40 p-4 rounded-2xl border border-slate-700/50">
+      <div className="flex items-center justify-between bg-navy-850 p-4 rounded-2xl border border-white/5">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-teal-500/10 border border-teal-500/30 rounded-xl flex items-center justify-center text-teal-400 font-bold">
             {step}
@@ -207,7 +208,7 @@ export default function Import({ currentGroup }) {
               <div
                 key={s}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  step >= s ? 'bg-teal-500' : 'bg-slate-750'
+                  step >= s ? 'bg-teal-500' : 'bg-navy-800'
                 }`}
               />
             );
@@ -237,7 +238,7 @@ export default function Import({ currentGroup }) {
                 <p className="text-xs text-slate-400">Drag & drop your exported file or browse from files. The CSV must contain headers: date, description, paid_by, amount, currency, split_type, split_with, split_details, notes.</p>
               </div>
 
-              <DropZone onFileDrop={handleFileUpload} />
+              <DropZone onDrop={(files) => files.length > 0 && handleFileUpload(files[0])} />
             </div>
           )}
         </Card>
@@ -282,11 +283,11 @@ export default function Import({ currentGroup }) {
               </p>
             </div>
 
-            <Card className="overflow-hidden p-0 border border-slate-800">
+            <Card className="overflow-hidden p-0 border border-white/5">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs sm:text-sm">
                   <thead>
-                    <tr className="bg-slate-800/60 text-slate-400 font-semibold border-b border-slate-700/50 uppercase tracking-wider text-[10px]">
+                    <tr className="bg-navy-800/60 text-slate-400 font-semibold border-b border-white/5 uppercase tracking-wider text-[10px]">
                       <th className="py-3 px-4">Row #</th>
                       <th className="py-3 px-4">Field</th>
                       <th className="py-3 px-4">Anomaly Issue</th>
@@ -295,7 +296,7 @@ export default function Import({ currentGroup }) {
                       <th className="py-3 px-4 text-right">Your Decision</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/50 text-slate-350">
+                  <tbody className="divide-y divide-white/5 text-slate-350">
                     {anomaliesList.map((a, idx) => {
                       const isResolved = resolutions[a.row] !== undefined;
                       const requiresApproval = a.requires_approval;
@@ -306,7 +307,7 @@ export default function Import({ currentGroup }) {
                           className={`transition-colors ${
                             requiresApproval && !isResolved 
                               ? 'bg-amber-500/5 hover:bg-amber-500/10' 
-                              : 'hover:bg-slate-800/20'
+                              : 'hover:bg-navy-800/40'
                           }`}
                         >
                           <td className="py-3.5 px-4 font-mono font-bold text-slate-400">#{a.row}</td>
@@ -321,7 +322,7 @@ export default function Import({ currentGroup }) {
                                 className={`px-2 py-1 rounded text-[10px] font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                                   resolutions[a.row] === 'accept'
                                     ? 'bg-emerald-500 text-white shadow-sm shadow-emerald-500/10'
-                                    : 'bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white'
+                                    : 'bg-navy-800 hover:bg-navy-800/80 text-slate-400 hover:text-white'
                                 }`}
                               >
                                 Accept
@@ -331,7 +332,7 @@ export default function Import({ currentGroup }) {
                                 className={`px-2 py-1 rounded text-[10px] font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                                   resolutions[a.row] === 'reject'
                                     ? 'bg-rose-500 text-white shadow-sm shadow-rose-500/10'
-                                    : 'bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white'
+                                    : 'bg-navy-800 hover:bg-navy-800/80 text-slate-400 hover:text-white'
                                 }`}
                               >
                                 Reject
@@ -395,7 +396,7 @@ export default function Import({ currentGroup }) {
               placeholder="e.g. 84.50"
               required
             />
-            <div className="bg-slate-800/30 border border-slate-700/30 p-3 rounded-2xl text-[10px] text-slate-400 flex items-start gap-1.5">
+            <div className="bg-navy-800/30 border border-white/5 p-3 rounded-2xl text-[10px] text-slate-400 flex items-start gap-1.5">
               <Info className="w-3.5 h-3.5 text-teal-400 flex-shrink-0 mt-0.5" />
               <span>
                 Default fetched dynamically is currently <strong>₹{fxRate}</strong>. 
@@ -434,7 +435,7 @@ export default function Import({ currentGroup }) {
             </p>
           </div>
 
-          <div className="border border-slate-800 bg-slate-900/30 p-4 rounded-2xl text-left space-y-2 text-xs">
+          <div className="border border-white/5 bg-navy-850/30 p-4 rounded-2xl text-left space-y-2 text-xs">
             <div className="flex justify-between">
               <span className="text-slate-500 font-semibold">Total Clean Rows:</span>
               <span className="font-bold text-white">{previewData?.rows_ok}</span>
@@ -485,7 +486,7 @@ export default function Import({ currentGroup }) {
       {step === 5 && reportData && (
         <div className="space-y-6 animate-fade-in">
           {/* Report summary */}
-          <Card className="p-6 bg-slate-900/40 border border-slate-800 flex flex-col items-center justify-center text-center space-y-4">
+          <Card className="p-6 bg-navy-850 border border-white/5 flex flex-col items-center justify-center text-center space-y-4">
             <CheckCircle className="w-12 h-12 text-emerald-400 animate-float" />
             
             <div className="space-y-1">
@@ -495,17 +496,17 @@ export default function Import({ currentGroup }) {
               </p>
             </div>
 
-            <div className="flex gap-8 border-y border-slate-800/80 py-4 px-6 w-full max-w-md justify-around text-center text-xs">
+            <div className="flex gap-8 border-y border-white/5 py-4 px-6 w-full max-w-md justify-around text-center text-xs">
               <div>
                 <p className="text-slate-500 uppercase font-semibold">Total Rows</p>
                 <p className="text-xl font-black text-white mt-1 tabular-nums">{reportData.total_rows}</p>
               </div>
-              <div className="border-l border-slate-800" />
+              <div className="border-l border-white/5" />
               <div>
                 <p className="text-slate-500 uppercase font-semibold text-emerald-400">Imported</p>
                 <p className="text-xl font-black text-emerald-400 mt-1 tabular-nums">{reportData.imported_rows}</p>
               </div>
-              <div className="border-l border-slate-800" />
+              <div className="border-l border-white/5" />
               <div>
                 <p className="text-slate-500 uppercase font-semibold text-rose-400">Skipped</p>
                 <p className="text-xl font-black text-rose-400 mt-1 tabular-nums">{reportData.skipped_rows}</p>
@@ -525,18 +526,18 @@ export default function Import({ currentGroup }) {
           {/* Resolutions summary logs */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Audit Log Resolutions</h3>
-            <Card className="overflow-hidden p-0 border border-slate-800">
+            <Card className="overflow-hidden p-0 border border-white/5">
               <table className="w-full text-left border-collapse text-xs sm:text-sm">
                 <thead>
-                  <tr className="bg-slate-800/60 text-slate-400 font-semibold border-b border-slate-700/50 uppercase tracking-wider text-[10px]">
+                  <tr className="bg-navy-800/60 text-slate-400 font-semibold border-b border-white/5 uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">CSV Row</th>
                     <th className="py-2.5 px-3">Import Action</th>
                     <th className="py-2.5 px-3">Details / Reason</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/50 text-slate-350">
+                <tbody className="divide-y divide-white/5 text-slate-350">
                   {reportData.resolution_log?.map((log, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/10">
+                    <tr key={idx} className="hover:bg-navy-800/40">
                       <td className="py-2.5 px-3 font-mono font-bold text-slate-400">#{log.row}</td>
                       <td className="py-2.5 px-3">
                         <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border uppercase ${

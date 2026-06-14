@@ -1,13 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 import client from '../api/client';
+import { useAuth } from '../context/AuthContext';
 
 export function useGroups() {
+  const { isAuthenticated } = useAuth();
   const [groups, setGroups] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchGroups = useCallback(async () => {
+    if (!isAuthenticated) return;
     try {
       setLoading(true);
       const res = await client.get('/groups');
@@ -30,11 +33,35 @@ export function useGroups() {
     } finally {
       setLoading(false);
     }
+  }, [isAuthenticated]);
+
+  const fetchGroupDetail = useCallback(async (groupId) => {
+    const res = await client.get(`/groups/${groupId}`);
+    return res.data.group || res.data;
   }, []);
 
   useEffect(() => {
-    fetchGroups();
-  }, [fetchGroups]);
+    if (isAuthenticated) {
+      fetchGroups();
+    } else {
+      setGroups([]);
+      setCurrentGroup(null);
+    }
+  }, [fetchGroups, isAuthenticated]);
+
+  useEffect(() => {
+    if (currentGroup && !currentGroup.members) {
+      const loadDetail = async () => {
+        try {
+          const detail = await fetchGroupDetail(currentGroup.id);
+          setCurrentGroup(detail);
+        } catch (err) {
+          console.error('Failed to fetch group details in effect', err);
+        }
+      };
+      loadDetail();
+    }
+  }, [currentGroup, fetchGroupDetail]);
 
   const selectGroup = useCallback((group) => {
     setCurrentGroup(group);
@@ -48,11 +75,6 @@ export function useGroups() {
     setCurrentGroup(newGroup);
     localStorage.setItem('flatmate_current_group', String(newGroup.id));
     return newGroup;
-  }, []);
-
-  const fetchGroupDetail = useCallback(async (groupId) => {
-    const res = await client.get(`/groups/${groupId}`);
-    return res.data.group || res.data;
   }, []);
 
   return {

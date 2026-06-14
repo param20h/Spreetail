@@ -347,28 +347,28 @@ export default function AddExpenseModal({ isOpen, onClose, currentGroup, onSave,
                     )}
 
                     {splitType === 'unequal' && (
-                      <div className="w-32">
-                        <Input
+                      <div className="w-24 sm:w-32">
+                        <input
                           type="number"
                           step="0.01"
                           value={userVal.amount}
                           onChange={(e) => handleSplitValueChange(m.user_id, 'amount', e.target.value)}
-                          placeholder="Amount"
-                          className="h-8 py-0.5 text-xs text-right text-white"
+                          placeholder="0.00"
+                          className="w-full bg-navy-850 border border-white/5 rounded-lg px-2.5 py-1 text-xs text-right text-theme-primary focus:outline-none focus:ring-1 focus:ring-sky-500/30"
                         />
                       </div>
                     )}
 
                     {splitType === 'percentage' && (
                       <div className="flex items-center gap-2">
-                        <div className="w-20">
-                          <Input
+                        <div className="w-16 sm:w-20">
+                          <input
                             type="number"
                             step="0.1"
                             value={userVal.percentage}
                             onChange={(e) => handleSplitValueChange(m.user_id, 'percentage', e.target.value)}
-                            placeholder="%"
-                            className="h-8 py-0.5 text-xs text-right text-white"
+                            placeholder="0.0"
+                            className="w-full bg-navy-850 border border-white/5 rounded-lg px-2.5 py-1 text-xs text-right text-theme-primary focus:outline-none focus:ring-1 focus:ring-sky-500/30"
                           />
                         </div>
                         <span className="text-xs text-slate-400 font-mono w-16 text-right">
@@ -379,14 +379,14 @@ export default function AddExpenseModal({ isOpen, onClose, currentGroup, onSave,
 
                     {splitType === 'share' && (
                       <div className="flex items-center gap-2">
-                        <div className="w-20">
-                          <Input
+                        <div className="w-16 sm:w-20">
+                          <input
                             type="number"
                             step="1"
                             value={userVal.shares}
                             onChange={(e) => handleSplitValueChange(m.user_id, 'shares', e.target.value)}
-                            placeholder="Shares"
-                            className="h-8 py-0.5 text-xs text-right text-white"
+                            placeholder="1"
+                            className="w-full bg-navy-850 border border-white/5 rounded-lg px-2.5 py-1 text-xs text-right text-theme-primary focus:outline-none focus:ring-1 focus:ring-sky-500/30"
                           />
                         </div>
                         <span className="text-xs text-slate-400 font-mono w-16 text-right">

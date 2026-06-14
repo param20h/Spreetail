@@ -13,7 +13,7 @@ export default function Card({
       className={cn(
         'glass rounded-2xl',
         padding,
-        hover && 'hover:bg-slate-700/50 hover:border-slate-500/20 transition-all duration-300 cursor-pointer hover:-translate-y-0.5',
+        hover && 'hover:bg-navy-800/60 hover:border-white/10 transition-all duration-300 cursor-pointer hover:-translate-y-0.5',
         glow && 'animate-pulse-glow',
         className
       )}
@@ -34,7 +34,7 @@ export function CardHeader({ children, className = '' }) {
 
 export function CardTitle({ children, className = '' }) {
   return (
-    <h3 className={cn('text-lg font-semibold text-white', className)}>
+    <h3 className={cn('text-lg font-semibold text-theme-primary', className)}>
       {children}
     </h3>
   );

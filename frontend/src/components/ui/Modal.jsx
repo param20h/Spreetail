@@ -56,11 +56,11 @@ export default function Modal({
       >
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700/50">
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+            <h2 className="text-lg font-semibold text-theme-primary">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg hover:bg-slate-700/50 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-navy-800/60 text-slate-400 hover:text-theme-primary transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>

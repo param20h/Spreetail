@@ -5,11 +5,13 @@ import Badge from '../ui/Badge';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import { Calendar, User, Info, DollarSign, Edit, Trash2 } from 'lucide-react';
 
-export default function ExpenseDetailModal({ isOpen, onClose, expense, onEdit, onDelete }) {
+export default function ExpenseDetailModal({ isOpen, onClose, expense, currentGroup = null, onEdit, onDelete }) {
   if (!expense) return null;
 
   // Recipient names lookup helper
   const getPayerName = (id) => {
+    const member = currentGroup?.members?.find(m => m.user_id === id);
+    if (member) return member.name;
     if (id === '11111111-1111-1111-1111-111111111111') return 'Aisha';
     if (id === '22222222-2222-2222-2222-222222222222') return 'Rohan';
     if (id === '33333333-3333-3333-3333-333333333333') return 'Priya';

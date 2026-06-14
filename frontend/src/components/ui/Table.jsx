@@ -38,7 +38,7 @@ export default function Table({
     <div className={cn('overflow-x-auto', className)}>
       <table className="w-full">
         <thead>
-          <tr className="border-b border-slate-700/50">
+          <tr className="border-b border-white/5">
             {columns.map((col) => (
               <th
                 key={col.key}
@@ -63,7 +63,7 @@ export default function Table({
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-700/30">
+        <tbody className="divide-y divide-white/5">
           {sortedData.length === 0 ? (
             <tr>
               <td colSpan={columns.length} className="px-4 py-12 text-center text-slate-500">
@@ -77,7 +77,7 @@ export default function Table({
                 onClick={() => onRowClick?.(row)}
                 className={cn(
                   'transition-colors duration-150',
-                  onRowClick && 'cursor-pointer hover:bg-slate-700/30'
+                  onRowClick && 'cursor-pointer hover:bg-navy-800/40'
                 )}
               >
                 {columns.map((col) => (

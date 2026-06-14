@@ -39,9 +39,9 @@ export default function Sidebar({ isOpen, onClose }) {
         )}
       >
         {/* Logo */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-700/50">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-teal-500/20">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center shadow-lg shadow-sky-500/15">
               <Wallet className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="lg:hidden p-1.5 rounded-lg hover:bg-slate-700/50 text-slate-400 cursor-pointer"
+            className="lg:hidden p-1.5 rounded-lg hover:bg-navy-800/60 text-slate-400 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -69,19 +69,19 @@ export default function Sidebar({ isOpen, onClose }) {
                 className={cn(
                   'flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group',
                   isActive
-                    ? 'bg-gradient-to-r from-teal-500/15 to-emerald-500/10 text-teal-400 border border-teal-500/20'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-700/40'
+                    ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+                    : 'text-slate-400 hover:text-white hover:bg-navy-800/60'
                 )}
               >
                 <item.icon
                   className={cn(
                     'w-5 h-5 transition-colors',
-                    isActive ? 'text-teal-400' : 'text-slate-500 group-hover:text-slate-300'
+                    isActive ? 'text-sky-400' : 'text-slate-500 group-hover:text-slate-300'
                   )}
                 />
                 {item.label}
                 {isActive && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-teal-400" />
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-sky-400" />
                 )}
               </NavLink>
             );
@@ -89,10 +89,10 @@ export default function Sidebar({ isOpen, onClose }) {
         </nav>
 
         {/* Footer */}
-        <div className="px-4 py-4 border-t border-slate-700/50">
+        <div className="px-4 py-4 border-t border-white/5">
           <div className="glass rounded-xl px-4 py-3">
             <p className="text-xs text-slate-500">FlatMate v1.0</p>
-            <p className="text-[10px] text-slate-600 mt-0.5">Split expenses fairly</p>
+            <p className="text-[10px] text-slate-650 mt-0.5">Split expenses fairly</p>
           </div>
         </div>
       </aside>

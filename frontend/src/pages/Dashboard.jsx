@@ -28,6 +28,19 @@ export default function Dashboard({ currentGroup }) {
     }
   }, [currentGroup, fetchBalances, fetchExpenses]);
 
+  const getPayerName = (id) => {
+    const member = currentGroup?.members?.find(m => m.user_id === id);
+    if (member) return member.name;
+    if (id === '11111111-1111-1111-1111-111111111111') return 'Aisha';
+    if (id === '22222222-2222-2222-2222-222222222222') return 'Rohan';
+    if (id === '33333333-3333-3333-3333-333333333333') return 'Priya';
+    if (id === '44444444-4444-4444-4444-444444444444') return 'Meera';
+    if (id === '55555555-5555-5555-5555-555555555555') return 'Sam';
+    if (id === '66666666-6666-6666-6666-666666666666') return 'Dev';
+    if (id === '77777777-7777-7777-7777-777777777777') return 'Kabir';
+    return 'Flatmate';
+  };
+
   const handleRecordSettlement = async () => {
     if (!selectedSettlement) return;
     try {
@@ -62,7 +75,7 @@ export default function Dashboard({ currentGroup }) {
   if (!currentGroup) {
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center text-center p-6 animate-fade-in">
-        <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mb-4 border border-slate-700/50">
+        <div className="w-16 h-16 rounded-2xl bg-navy-800 flex items-center justify-center mb-4 border border-white/5">
           <TrendingUp className="w-8 h-8 text-teal-400" />
         </div>
         <h2 className="text-xl font-bold text-white mb-2">No Group Selected</h2>
@@ -107,7 +120,7 @@ export default function Dashboard({ currentGroup }) {
       {/* Hero Balance Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="flex items-center gap-4 p-5">
-          <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center border border-slate-700/50">
+          <div className="w-12 h-12 rounded-xl bg-navy-800 flex items-center justify-center border border-white/5">
             <Receipt className="w-6 h-6 text-teal-400" />
           </div>
           <div>
@@ -133,7 +146,7 @@ export default function Dashboard({ currentGroup }) {
         </Card>
 
         <Card className="flex items-center gap-4 p-5">
-          <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center border border-slate-700/50">
+          <div className="w-12 h-12 rounded-xl bg-navy-800 flex items-center justify-center border border-white/5">
             <Scale className="w-6 h-6 text-emerald-400" />
           </div>
           <div>
@@ -149,7 +162,7 @@ export default function Dashboard({ currentGroup }) {
         {/* Balances list */}
         <div className="lg:col-span-2 space-y-4">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            Balances <span className="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-normal">All Members</span>
+            Balances <span className="text-xs bg-navy-800 text-slate-400 px-2 py-0.5 rounded-full font-normal">All Members</span>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -163,13 +176,13 @@ export default function Dashboard({ currentGroup }) {
                 <Card key={memberId} className={`p-4 border transition-all hover:scale-[1.01] ${getBalanceBg(bal)}`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-slate-700/50 flex items-center justify-center text-slate-300 font-semibold uppercase">
+                      <div className="w-10 h-10 rounded-full bg-navy-800 flex items-center justify-center text-slate-300 font-semibold uppercase">
                         <User className="w-4 h-4 text-slate-400" />
                       </div>
                       <div>
                         <h3 className="font-medium text-white flex items-center gap-1.5 text-sm">
                           {netBalances[memberId] === undefined ? 'Unknown' : (memberId === '11111111-1111-1111-1111-111111111111' ? 'Aisha' : memberId === '22222222-2222-2222-2222-222222222222' ? 'Rohan' : memberId === '33333333-3333-3333-3333-333333333333' ? 'Priya' : memberId === '44444444-4444-4444-4444-444444444444' ? 'Meera' : memberId === '55555555-5555-5555-5555-555555555555' ? 'Sam' : memberId === '66666666-6666-6666-6666-666666666666' ? 'Dev' : memberId === '77777777-7777-7777-7777-777777777777' ? 'Kabir' : 'Flatmate')}
-                          {isCurrentUser && <span className="text-[10px] bg-slate-800 text-teal-400 border border-teal-500/20 px-1.5 py-0.5 rounded-full font-normal">You</span>}
+                          {isCurrentUser && <span className="text-[10px] bg-navy-800 text-teal-400 border border-teal-500/20 px-1.5 py-0.5 rounded-full font-normal">You</span>}
                         </h3>
                         <p className="text-xs text-slate-500 mt-0.5">
                           {bal > 0 ? 'is owed' : bal < 0 ? 'owes' : 'settled up'}
@@ -201,7 +214,7 @@ export default function Dashboard({ currentGroup }) {
             ) : (
               <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1">
                 {settlementsNeeded.map((s, idx) => (
-                  <div key={idx} className="flex flex-col gap-2 p-3 bg-slate-800/40 border border-slate-700/30 rounded-xl hover:bg-slate-800/60 transition-colors">
+                  <div key={idx} className="flex flex-col gap-2 p-3 bg-navy-800/40 border border-white/5 rounded-xl hover:bg-navy-800/60 transition-colors">
                     <div className="flex items-center justify-between text-xs text-slate-400">
                       <span className="font-semibold text-slate-300">{s.paid_by_name}</span>
                       <ArrowRight className="w-3 h-3 text-slate-500" />
@@ -241,13 +254,13 @@ export default function Dashboard({ currentGroup }) {
               <p className="text-sm text-slate-400">No expenses recorded yet.</p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-800/80">
+            <div className="divide-y divide-white/5">
               {expenses.map((expense) => (
-                <div key={expense.id} className="flex items-center justify-between p-4 hover:bg-slate-800/20 transition-colors">
+                <div key={expense.id} className="flex items-center justify-between p-4 hover:bg-navy-850/40 transition-colors">
                   <div className="min-w-0 flex-1">
                     <h3 className="font-medium text-white truncate text-sm">{expense.description}</h3>
                     <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5">
-                      <span>Paid by {expense.paid_by_user_id === '11111111-1111-1111-1111-111111111111' ? 'Aisha' : expense.paid_by_user_id === '22222222-2222-2222-2222-222222222222' ? 'Rohan' : expense.paid_by_user_id === '33333333-3333-3333-3333-333333333333' ? 'Priya' : expense.paid_by_user_id === '44444444-4444-4444-4444-444444444444' ? 'Meera' : expense.paid_by_user_id === '55555555-5555-5555-5555-555555555555' ? 'Sam' : expense.paid_by_user_id === '66666666-6666-6666-6666-666666666666' ? 'Dev' : expense.paid_by_user_id === '77777777-7777-7777-7777-777777777777' ? 'Kabir' : 'Flatmate'}</span>
+                      <span>Paid by {getPayerName(expense.paid_by_user_id)}</span>
                       <span>•</span>
                       <span>{new Date(expense.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</span>
                       {expense.is_refund && <span className="bg-rose-500/15 text-rose-400 border border-rose-500/20 text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">Refund</span>}
@@ -278,7 +291,7 @@ export default function Dashboard({ currentGroup }) {
         <div className="space-y-4">
           {selectedSettlement ? (
             <div className="space-y-4">
-              <div className="bg-slate-800/50 border border-slate-700/50 p-4 rounded-2xl flex flex-col gap-3 items-center text-center">
+              <div className="bg-navy-800/50 border border-white/5 p-4 rounded-2xl flex flex-col gap-3 items-center text-center">
                 <div className="flex items-center gap-3 justify-center">
                   <span className="font-semibold text-white">{selectedSettlement.paid_by_name}</span>
                   <ArrowRight className="w-4 h-4 text-teal-400" />
@@ -296,7 +309,7 @@ export default function Dashboard({ currentGroup }) {
                   type="date"
                   value={settlementDate}
                   onChange={(e) => setSettlementDate(e.target.value)}
-                  className="w-full bg-slate-800/80 border border-slate-700/50 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-500/50"
+                  className="w-full bg-navy-850 border border-white/5 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-500/50"
                 />
               </div>
 
@@ -327,7 +340,7 @@ export default function Dashboard({ currentGroup }) {
                   <div
                     key={idx}
                     onClick={() => setSelectedSettlement(s)}
-                    className="flex items-center justify-between p-3.5 bg-slate-800/40 hover:bg-slate-800/80 border border-slate-700/30 hover:border-teal-500/20 rounded-2xl cursor-pointer transition-all hover:scale-[1.01]"
+                    className="flex items-center justify-between p-3.5 bg-navy-850 hover:bg-navy-800 border border-white/5 rounded-2xl cursor-pointer transition-all hover:scale-[1.01]"
                   >
                     <div className="flex items-center gap-2 text-sm text-slate-300">
                       <span className="font-semibold text-white">{s.paid_by_name}</span>
