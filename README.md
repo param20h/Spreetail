@@ -164,12 +164,6 @@ This executes 24 unit and integration tests covering the CSV import anomaly engi
 
 ---
 
-## 🌐 Deployed URLs
-
-| Service | URL |
-|---|---|
-| **Frontend (Vercel)** | [https://spreetail-six.vercel.app](https://spreetail-six.vercel.app) |
-| **Backend API (Railway)** | [https://spreetail-production.up.railway.app](https://spreetail-production.up.railway.app) |
 
 ### Demo Login
 - **Email**: `aisha@flatmate.com`
